@@ -19,13 +19,9 @@ public class WebGet : MonoBehaviour {
     }
 
     public string sourceUrl;
+    public GeometryData geometryData;
 
-    // Use this for initialization
-    void Start() {
-        StartCoroutine(GetData());
-    }
-
-    IEnumerator GetData() {
+    public IEnumerator GetData() {
         UnityWebRequest webData = UnityWebRequest.Get(sourceUrl);
 
         yield return webData.SendWebRequest();
@@ -37,14 +33,8 @@ public class WebGet : MonoBehaviour {
         {
             var data = JsonConvert.DeserializeObject<MazeMapData>(webData.downloadHandler.text);
             var geomHeap = data.geometry.coordinates;
-            
-            geomHeap.ForEach(delegate(List<List<double>> v)
-            {
-                v.ForEach(delegate (List<double> v2)
-                {
-                    Debug.Log(string.Format("{0} - {1}", v2[0], v2[1]));
-                });
-            });
+
+            geometryData = data.geometry;
         }
     }
 }
