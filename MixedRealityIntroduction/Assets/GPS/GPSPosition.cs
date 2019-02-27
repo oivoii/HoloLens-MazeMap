@@ -16,8 +16,8 @@ public class GPSPosition : MonoBehaviour
 
     }
 
-
-    public static LatLong getGPSPosition() => new LatLong(63.4305658, 10.3951929);
+    // Returns a coordinate that should correspond to the computer lab we are working in
+    public static LatLong getGPSPosition() => new LatLong(63.4106993, 10.4095353);
 
 
 }
