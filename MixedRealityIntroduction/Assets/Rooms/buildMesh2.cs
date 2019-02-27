@@ -9,12 +9,6 @@ public class buildMesh2 : MonoBehaviour {
         StartCoroutine(GetMeshData());
 	}
 
-    List<Vector3> ConvertMeshData(MazeMapGet.GeometryData geomData) {
-        List<Vector3> outData = new List<Vector3>();
-
-        return outData;
-    }
-
     IEnumerator GetMeshData() {
         MazeMapGet w = GetComponent<MazeMapGet>();
 
@@ -22,9 +16,12 @@ public class buildMesh2 : MonoBehaviour {
 
         yield return StartCoroutine(w.GetData());
 
-        List<Vector3> vertices = ConvertMeshData(w.geometryData);
+        List<Vector3> vertices = new List<Vector3>();
 
-        StartCoroutine(CreateMesh(vertices.ToArray()));
+        if (vertices.Count > 5)
+            StartCoroutine(CreateMesh(vertices.ToArray()));
+        else
+            Debug.LogWarning("Not enough vertices to work with");
     }
 
     IEnumerator CreateMesh(Vector3[] vertices) {
