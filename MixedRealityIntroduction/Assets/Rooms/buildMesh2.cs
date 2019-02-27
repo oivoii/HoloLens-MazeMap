@@ -16,6 +16,9 @@ public class buildMesh2 : MonoBehaviour {
 
         yield return StartCoroutine(w.GetData());
 
+        Debug.Log("Count: ");
+        Debug.Log(w.geometryData.coordinates.);
+
         List<Vector3> vertices = new List<Vector3>();
 
         if (vertices.Count > 5)
@@ -25,6 +28,8 @@ public class buildMesh2 : MonoBehaviour {
     }
 
     IEnumerator CreateMesh(Vector3[] vertices) {
+        Debug.Log(vertices);
+
         int vectorLength = (vertices.Length / 2);
         //print(vectorLength);
         // Converting floats to int
