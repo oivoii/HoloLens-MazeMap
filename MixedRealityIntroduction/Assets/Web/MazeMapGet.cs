@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
-public class WebGet : MonoBehaviour {
+public class MazeMapGet : MonoBehaviour {
     
     [System.Serializable]
     public struct GeometryData
