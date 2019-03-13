@@ -6,7 +6,7 @@ public class buildMesh2 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(GetMeshData());
+        //StartCoroutine(GetMeshData());
 	}
 
     IEnumerator GetMeshData() {
@@ -24,7 +24,7 @@ public class buildMesh2 : MonoBehaviour {
             Debug.LogWarning("Not enough vertices to work with");
     }
 
-    IEnumerator CreateMesh(Vector3[] vertices) {
+    public IEnumerator CreateMesh(Vector3[] vertices) {
         int vectorLength = (vertices.Length / 2);
         //print(vectorLength);
         // Converting floats to int

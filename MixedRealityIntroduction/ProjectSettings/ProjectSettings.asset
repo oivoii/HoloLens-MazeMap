@@ -588,7 +588,7 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
-    Metro: 1
+    Metro: 2
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
@@ -621,25 +621,25 @@ PlayerSettings:
     WindowsStoreApps:
       AllJoyn: False
       BlockedChatMessages: False
-      Bluetooth: False
+      Bluetooth: True
       Chat: False
       CodeGeneration: False
       EnterpriseAuthentication: False
-      HumanInterfaceDevice: False
+      HumanInterfaceDevice: True
       InputInjectionBrokered: False
       InternetClient: True
       InternetClientServer: True
-      Location: False
-      Microphone: False
+      Location: True
+      Microphone: True
       MusicLibrary: False
       Objects3D: False
       PhoneCall: False
       PicturesLibrary: False
       PrivateNetworkClientServer: False
-      Proximity: False
+      Proximity: True
       RemovableStorage: False
       SharedUserCertificates: False
-      SpatialPerception: False
+      SpatialPerception: True
       UserAccountInformation: False
       VideosLibrary: False
       VoipCall: False
