@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 
 public class MazeMapGlue : MonoBehaviour {
     public InputField sourceUrlField;
+    public GameObject cursor;
 
     private const int mapSRID = 4326;
     private const string mapSearchUrlTemplate = 
@@ -63,6 +64,7 @@ public class MazeMapGlue : MonoBehaviour {
             Debug.LogError("Failed to search MazeMap");
         } else
         {
+            Debug.Log(webData.downloadHandler.text);
             var data = JsonConvert.DeserializeObject<MazeMapSearch>(webData.downloadHandler.text);
             if(data.result.Count == 0) {
                 Debug.LogError("No results for search");
@@ -96,6 +98,8 @@ public class MazeMapGlue : MonoBehaviour {
 
         /* We can then await MazeMapGet for the geometry data */
         yield return mapGet.GetData();
+
+        Debug.Log("derp");
 
         yield break;
 
@@ -131,10 +135,7 @@ public class MazeMapGlue : MonoBehaviour {
         float yDiff = (float)yDifference;
 
         Vector3 direction = new Vector3((float)xDifference, (float)yDifference).normalized;
-
-        Debug.Log(string.Format("Direction: {0}, distance: {1}",
-            direction.ToString(), distance));
-
+        
         /* The end result */
         currentPos.position = new Vector3(direction.x * distance, direction.y * distance);
     }

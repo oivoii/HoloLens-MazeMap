@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceUrlField: {fileID: 0}
+  cursor: {fileID: 0}
 --- !u!114 &114117111835178250
 MonoBehaviour:
   m_ObjectHideFlags: 1
