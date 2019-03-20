@@ -3,28 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class buildMesh2 : MonoBehaviour {
+    public double latitude;
+    public double longitude;
 
-	// Use this for initialization
-	void Start () {
-        StartCoroutine(GetMeshData());
+    // Use this for initialization
+    void Start () {
+        //StartCoroutine(GetMeshData());
 	}
 
-    IEnumerator GetMeshData() {
-        MazeMapGet w = GetComponent<MazeMapGet>();
-
-        w.sourceUrl = "https://api.mazemap.com/api/pois/2037/?srid=4326";
-
-        yield return StartCoroutine(w.GetData());
-
-        List<Vector3> vertices = new List<Vector3>();
-
-        if (vertices.Count > 5)
-            StartCoroutine(CreateMesh(vertices.ToArray()));
-        else
-            Debug.LogWarning("Not enough vertices to work with");
-    }
-
-    IEnumerator CreateMesh(Vector3[] vertices) {
+    public IEnumerator CreateMesh(Vector3[] vertices) {
         int vectorLength = (vertices.Length / 2);
         //print(vectorLength);
         // Converting floats to int
@@ -145,18 +132,3 @@ public class buildMesh2 : MonoBehaviour {
         mesh.RecalculateNormals();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

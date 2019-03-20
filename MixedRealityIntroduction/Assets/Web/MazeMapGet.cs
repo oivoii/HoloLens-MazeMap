@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class MazeMapGet : MonoBehaviour {
@@ -32,7 +33,6 @@ public class MazeMapGet : MonoBehaviour {
         }else
         {
             var data = JsonConvert.DeserializeObject<MazeMapData>(webData.downloadHandler.text);
-            var geomHeap = data.geometry.coordinates;
 
             geometryData = data.geometry;
         }
