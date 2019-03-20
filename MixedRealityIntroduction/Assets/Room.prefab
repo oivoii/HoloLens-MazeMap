@@ -9,40 +9,39 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1942821408837704}
+  m_RootGameObject: {fileID: 1279513339785464}
   m_IsPrefabParent: 1
---- !u!1 &1942821408837704
+--- !u!1 &1279513339785464
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4486359652050810}
-  - component: {fileID: 33857577964593588}
-  - component: {fileID: 23275202619480190}
-  - component: {fileID: 65650176494538440}
-  - component: {fileID: 114189730058431674}
-  - component: {fileID: 114779473825260144}
-  - component: {fileID: 114433441930053196}
-  - component: {fileID: 114852680549983804}
-  - component: {fileID: 114448834937900134}
-  - component: {fileID: 114827559642743246}
-  - component: {fileID: 114526233037961406}
-  - component: {fileID: 114180754716314816}
+  - component: {fileID: 4297239473859368}
+  - component: {fileID: 33941152125755400}
+  - component: {fileID: 23614972940672382}
+  - component: {fileID: 65545514185780058}
+  - component: {fileID: 114310187386673768}
+  - component: {fileID: 114154805950115454}
+  - component: {fileID: 114432000142934304}
+  - component: {fileID: 114117111835178250}
+  - component: {fileID: 114489150343254382}
+  - component: {fileID: 114033703614169460}
+  - component: {fileID: 114186564515178136}
   m_Layer: 0
-  m_Name: TheAllKnowingCube
+  m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4486359652050810
+--- !u!4 &4297239473859368
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
@@ -50,12 +49,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23275202619480190
+--- !u!23 &23614972940672382
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,65 +83,111 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33857577964593588
+--- !u!33 &33941152125755400
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65650176494538440
+--- !u!65 &65545514185780058
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114180754716314816
+--- !u!114 &114033703614169460
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7787745476ceb034bbfc93a48d459348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sourceUrlField: {fileID: 0}
---- !u!114 &114189730058431674
+--- !u!114 &114117111835178250
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62fd7a55ba7458499b69cae18f83806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PersistentKeywords: 0
+  RecognizerStart: 0
+  Keywords:
+  - Keyword: Search
+    KeyCode: 98
+  recognitionConfidenceLevel: 1
+--- !u!114 &114154805950115454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279513339785464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee1eab52c584244cb0eb2f41daa47cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceUrl: https://api.mazemap.com/api/pois/closestpoi/?lat=63.4159449193721&lng=10.4064431471075&z=-1&srid=4326
+  geometryData:
+    type: Polygon
+--- !u!114 &114186564515178136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279513339785464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e338f0247b5a7e4fb6065dfee118acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  latitude: 63.410789
+  longitude: 10.409592
+--- !u!114 &114310187386673768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279513339785464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7e01bc8b0f76fd45bcd4e2110a923d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114433441930053196
+--- !u!114 &114432000142934304
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8f64527d1217884b9651eeb73f29d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114448834937900134
+  latitude: 63.410777
+  longitude: 10.41044
+--- !u!114 &114489150343254382
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
+  m_GameObject: {fileID: 1279513339785464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7d6513c2cdf97f409654a2a4114d9b1, type: 3}
@@ -153,7 +198,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114180754716314816}
+        - m_Target: {fileID: 114033703614169460}
           m_MethodName: PerformSearch
           m_Mode: 1
           m_Arguments:
@@ -168,57 +213,3 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   IsGlobalListener: 1
   PersistentKeywords: 0
---- !u!114 &114526233037961406
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a51635460b371584da20f2d2575ca083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventProcessor: {fileID: 114827559642743246}
---- !u!114 &114779473825260144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee1eab52c584244cb0eb2f41daa47cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sourceUrl: https://api.mazemap.com/api/pois/closestpoi/?lat=63.4159449193721&lng=10.4064431471075&z=-1&srid=4326
-  geometryData:
-    type: Polygon
---- !u!114 &114827559642743246
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8841bf3013e6940829ef2f00703d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114852680549983804
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942821408837704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62fd7a55ba7458499b69cae18f83806, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PersistentKeywords: 0
-  RecognizerStart: 0
-  Keywords:
-  - Keyword: Search
-    KeyCode: 98
-  recognitionConfidenceLevel: 1
