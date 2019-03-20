@@ -33,7 +33,6 @@ public class MazeMapGet : MonoBehaviour {
         }else
         {
             var data = JsonConvert.DeserializeObject<MazeMapData>(webData.downloadHandler.text);
-            var geomHeap = data.geometry.coordinates;
 
             geometryData = data.geometry;
         }
