@@ -152,45 +152,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1279513339785464, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
+      propertyPath: m_Name
+      value: Cube
+      objectReference: {fileID: 0}
     - target: {fileID: 114033703614169460, guid: f4d116503f0186f4db56d4a1e21e595b,
         type: 2}
       propertyPath: sourceUrlField
       value: 
       objectReference: {fileID: 651340267}
-    - target: {fileID: 1279513339785464, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 114432000142934304, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: latitude
-      value: 63.410777
-      objectReference: {fileID: 0}
-    - target: {fileID: 114432000142934304, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: longitude
-      value: 10.41044
-      objectReference: {fileID: 0}
-    - target: {fileID: 114186564515178136, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: latitude
-      value: 63.410789
-      objectReference: {fileID: 0}
-    - target: {fileID: 114186564515178136, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: longitude
-      value: 10.409592
-      objectReference: {fileID: 0}
-    - target: {fileID: 114117111835178250, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: Keywords.Array.data[0].KeyCode
-      value: 98
-      objectReference: {fileID: 0}
-    - target: {fileID: 114117111835178250, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: recognitionConfidenceLevel
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
   m_IsPrefabParent: 0
@@ -733,6 +703,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90749889d87976143a9e21072d2434b4, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &816165019 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1279513339785464, guid: f4d116503f0186f4db56d4a1e21e595b,
+    type: 2}
+  m_PrefabInternal: {fileID: 47472498}
+--- !u!114 &816165031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 816165019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b1a426ef23727459b78d7d1f8e306f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &851813830
 GameObject:
   m_ObjectHideFlags: 0

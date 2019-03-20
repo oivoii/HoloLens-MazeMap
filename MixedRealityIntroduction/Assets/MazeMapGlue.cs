@@ -12,10 +12,16 @@ public class MazeMapGlue : MonoBehaviour {
 
     private const int mapSRID = 4326;
     private const string mapSearchUrlTemplate = 
-        "https://api.mazemap.com/search/equery/?q={0}&rows=1&start=0&withpois=true";
+        "https://api.mazemap.com/search/equery/?q={0}&rows=10&start=0&withpois=true";
     private const string mapDataUrlTemplate =
         "https://api.mazemap.com/api/pois/closestpoi/?lat={0}&lng={1}&z={2}&srid={3}";
     private string mapDataUrl;
+
+    private int[] preferredCampuses =
+    {
+        1,
+        20,
+    };
     
     [System.Serializable]
     public struct PointData
@@ -43,6 +49,8 @@ public class MazeMapGlue : MonoBehaviour {
     public struct MazeMapResult
     {
         public PointData geometry;
+        public string title;
+        public int campusId;
         public double zValue;
     }
 
@@ -70,11 +78,26 @@ public class MazeMapGlue : MonoBehaviour {
                 Debug.LogError("No results for search");
             }else
             {
-                MazeMapResult result = data.result[0];
+                /* First, try to find a room on the preferred campus */
+                MazeMapResult result = data.result.Find(delegate(MazeMapResult res)
+                {
+                    for (int i = 0; i < preferredCampuses.Length; i++)
+                        if (preferredCampuses[i] == res.campusId)
+                            return true;
 
+                    return false;
+                });
+
+                /* If no room was found, just pick the first one */
+                if (result.title == null)
+                    result = data.result[0];
+
+                /* If it's not a point geometry type, the rest of it would fail */
                 if (result.geometry.type != "Point")
                     throw new System.ApplicationException(
                         string.Format("Unexpected geometry type: {0}", result.geometry.type));
+
+                Debug.Log(string.Format("Room: {0} at campus {1}", result.title, result.campusId));
 
                 mapDataUrl = string.Format(
                     mapDataUrlTemplate,
@@ -87,8 +110,6 @@ public class MazeMapGlue : MonoBehaviour {
     }
 
     IEnumerator PerformSearchInternal() {
-        sourceUrlField.text = "R1";
-
         /* Perform search in MazeMap */
         yield return GetMapDataUrl();
 
@@ -112,10 +133,6 @@ public class MazeMapGlue : MonoBehaviour {
         StartCoroutine(PerformSearchInternal());
     }
 
-    private void Start() {
-        PerformSearch();
-    }
-
     private void Update() {
         GPSPosition holoPosition = GetComponent<GPSPosition>();
         buildMesh2 meshData = GetComponent<buildMesh2>();
@@ -137,6 +154,8 @@ public class MazeMapGlue : MonoBehaviour {
         Vector3 direction = new Vector3((float)xDifference, (float)yDifference).normalized;
         
         /* The end result */
-        currentPos.position = new Vector3(direction.x * distance, direction.y * distance);
+        currentPos.position = new Vector3(direction.x, 0, direction.y);
+
+        //currentPos.position = new Vector3((float)holoPosition.latitude, (float)holoPosition.longitude);
     }
 }
