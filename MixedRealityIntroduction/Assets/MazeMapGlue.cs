@@ -122,11 +122,9 @@ public class MazeMapGlue : MonoBehaviour {
 
         Debug.Log("derp");
 
-        yield break;
-
         /* Once data has arrived, create the mesh to place out */
-        buildMesh2 meshBuilder = GetComponent<buildMesh2>();
-        StartCoroutine(meshBuilder.CreateMesh(null));
+        BuildMesh3 meshBuilder = GetComponent<BuildMesh3>();
+        yield return meshBuilder.MakeModel(mapGet.geometryData.coordinates);
     }
 
     public void PerformSearch() {
