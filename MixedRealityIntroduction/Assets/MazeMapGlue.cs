@@ -11,11 +11,26 @@ public class MazeMapGlue : MonoBehaviour {
 
     private const int mapSRID = 4326;
     private const string mapSearchUrlTemplate = 
-        "https://api.mazemap.com/search/equery/?q={0}&rows=1&start=0&withpois=true";
+        "https://api.mazemap.com/search/equery/?q={0}&rows=10&start=0&withpois=true";
     private const string mapDataUrlTemplate =
         "https://api.mazemap.com/api/pois/closestpoi/?lat={0}&lng={1}&z={2}&srid={3}";
     private string mapDataUrl;
+
+    private SearchResult searchState = SearchResult.Awaiting;
+
+    private int[] preferredCampuses =
+    {
+        1,
+        20,
+    };
     
+    private enum SearchResult
+    {
+        Awaiting,
+        Complete,
+        Failed,
+    };
+
     [System.Serializable]
     public struct PointData
     {
@@ -42,6 +57,8 @@ public class MazeMapGlue : MonoBehaviour {
     public struct MazeMapResult
     {
         public PointData geometry;
+        public string title;
+        public int campusId;
         public double zValue;
     }
 
@@ -58,21 +75,44 @@ public class MazeMapGlue : MonoBehaviour {
 
         yield return webData.SendWebRequest();
 
-        if(webData.isNetworkError || webData.isHttpError) {
+        var settings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+
+        if (webData.isNetworkError || webData.isHttpError) {
             Debug.LogError(webData.error);
             Debug.LogError("Failed to search MazeMap");
         } else
         {
-            var data = JsonConvert.DeserializeObject<MazeMapSearch>(webData.downloadHandler.text);
+            Debug.Log(webData.downloadHandler.text);
+            var data = JsonConvert.DeserializeObject<MazeMapSearch>(webData.downloadHandler.text, settings);
             if(data.result.Count == 0) {
                 Debug.LogError("No results for search");
+                searchState = SearchResult.Failed;
             }else
             {
-                MazeMapResult result = data.result[0];
+                /* First, try to find a room on the preferred campus */
+                MazeMapResult result = data.result.Find(delegate(MazeMapResult res)
+                {
+                    for (int i = 0; i < preferredCampuses.Length; i++)
+                        if (preferredCampuses[i] == res.campusId)
+                            return true;
 
+                    return false;
+                });
+
+                /* If no room was found, just pick the first one */
+                if (result.title == null)
+                    result = data.result[0];
+
+                /* If it's not a point geometry type, the rest of it would fail */
                 if (result.geometry.type != "Point")
                     throw new System.ApplicationException(
                         string.Format("Unexpected geometry type: {0}", result.geometry.type));
+
+                Debug.Log(string.Format("Room: {0} at campus {1}", result.title, result.campusId));
 
                 mapDataUrl = string.Format(
                     mapDataUrlTemplate,
@@ -80,15 +120,33 @@ public class MazeMapGlue : MonoBehaviour {
                     result.geometry.longitude,
                     Mathf.FloorToInt((float)result.zValue),
                     mapSRID).Replace(",", ".");
+
+                searchState = SearchResult.Complete;
             }
         }
     }
 
-    IEnumerator PerformSearchInternal() {
-        sourceUrlField.text = "R1";
+    private void ShowError(string error = "Something went wrong") {
+        GameObject obj = GameObject.FindGameObjectWithTag("StatusText");
+        Text statusField = obj.GetComponent<Text>();
+        statusField.text = error;
+    }
 
+    private void ClearError() {
+        ShowError("");
+    }
+
+    IEnumerator PerformSearchInternal() {
+        ClearError();
+        
         /* Perform search in MazeMap */
         yield return GetMapDataUrl();
+
+        if(searchState == SearchResult.Failed)
+        {
+            ShowError("No results for search");
+            yield break;
+        }
 
         /* Put MazeMap POI url into MazeMapGet to get geometry of room */
         MazeMapGet mapGet = GetComponent<MazeMapGet>();
@@ -97,45 +155,38 @@ public class MazeMapGlue : MonoBehaviour {
         /* We can then await MazeMapGet for the geometry data */
         yield return mapGet.GetData();
 
-        yield break;
+        if(mapGet.geometryData.coordinates == null)
+        {
+            ShowError("Couldn't find shape of room");
+            yield break;
+        }
 
         /* Once data has arrived, create the mesh to place out */
-        buildMesh2 meshBuilder = GetComponent<buildMesh2>();
-        StartCoroutine(meshBuilder.CreateMesh(null));
+        BuildMesh3 meshBuilder = GetComponent<BuildMesh3>();
+
+        if(meshBuilder == null)
+        {
+            Debug.LogError("Failed to locate BuildMesh3 component");
+            ShowError();
+            yield break;
+        }
+
+        yield return meshBuilder.MakeModel(mapGet.geometryData.coordinates);
     }
 
     public void PerformSearch() {
         StartCoroutine(PerformSearchInternal());
     }
 
-    private void Start() {
-        PerformSearch();
-    }
-
     private void Update() {
         GPSPosition holoPosition = GetComponent<GPSPosition>();
-        buildMesh2 meshData = GetComponent<buildMesh2>();
+        BuildMesh3 meshData = GetComponent<BuildMesh3>();
         Transform currentPos = gameObject.transform;
 
-        /* TODO: Displace currentPos relative to holoPosition, based on mesh */
-        const double equatorDegrees = 110.25;
-
-        double xDifference = meshData.latitude - holoPosition.latitude;
-        double yDifference = 
-            (meshData.longitude - holoPosition.longitude) * Math.Cos(holoPosition.latitude);
-
-        float distance = 
-            (float)(equatorDegrees * Math.Sqrt(Math.Pow(xDifference, 2) + Math.Pow(yDifference, 2)));
-
-        float xDiff = (float)xDifference;
-        float yDiff = (float)yDifference;
-
-        Vector3 direction = new Vector3((float)xDifference, (float)yDifference).normalized;
-
-        Debug.Log(string.Format("Direction: {0}, distance: {1}",
-            direction.ToString(), distance));
-
+        FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
+        
         /* The end result */
-        currentPos.position = new Vector3(direction.x * distance, direction.y * distance);
+        currentPos.position = new Vector3(direction.distance[1], 0, direction.distance[0]);
+        currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);
     }
 }
