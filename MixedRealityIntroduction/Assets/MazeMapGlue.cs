@@ -67,13 +67,19 @@ public class MazeMapGlue : MonoBehaviour {
 
         yield return webData.SendWebRequest();
 
-        if(webData.isNetworkError || webData.isHttpError) {
+        var settings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+
+        if (webData.isNetworkError || webData.isHttpError) {
             Debug.LogError(webData.error);
             Debug.LogError("Failed to search MazeMap");
         } else
         {
             Debug.Log(webData.downloadHandler.text);
-            var data = JsonConvert.DeserializeObject<MazeMapSearch>(webData.downloadHandler.text);
+            var data = JsonConvert.DeserializeObject<MazeMapSearch>(webData.downloadHandler.text, settings);
             if(data.result.Count == 0) {
                 Debug.LogError("No results for search");
             }else
@@ -133,26 +139,30 @@ public class MazeMapGlue : MonoBehaviour {
 
     private void Update() {
         GPSPosition holoPosition = GetComponent<GPSPosition>();
-        buildMesh2 meshData = GetComponent<buildMesh2>();
+        BuildMesh3 meshData = GetComponent<BuildMesh3>();
         Transform currentPos = gameObject.transform;
 
+        FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
+
+
         /* TODO: Displace currentPos relative to holoPosition, based on mesh */
-        const double equatorDegrees = 110.25;
+        //const double equatorDegrees = 110.25;
 
-        double xDifference = meshData.latitude - holoPosition.latitude;
-        double yDifference = 
-            (meshData.longitude - holoPosition.longitude) * Math.Cos(holoPosition.latitude);
+        //double xDifference = meshData.latitude - holoPosition.latitude;
+        //double yDifference = 
+        //    (meshData.longitude - holoPosition.longitude) * Math.Cos(holoPosition.latitude);
 
-        float distance = 
-            (float)(equatorDegrees * Math.Sqrt(Math.Pow(xDifference, 2) + Math.Pow(yDifference, 2)));
+        //float distance = 
+        //    (float)(equatorDegrees * Math.Sqrt(Math.Pow(xDifference, 2) + Math.Pow(yDifference, 2)));
 
-        float xDiff = (float)xDifference;
-        float yDiff = (float)yDifference;
+        //float xDiff = (float)xDifference;
+        //float yDiff = (float)yDifference;
 
-        Vector3 direction = new Vector3((float)xDifference, (float)yDifference).normalized;
+        //Vector3 irection = new Vector3((float)xDifference, (float)yDifference).normalized;
         
+
         /* The end result */
-        currentPos.position = new Vector3(direction.x, 0, direction.y);
+        currentPos.position = new Vector3(direction.distance[1], 0, direction.distance[0]);
 
         //currentPos.position = new Vector3((float)holoPosition.latitude, (float)holoPosition.longitude);
     }
