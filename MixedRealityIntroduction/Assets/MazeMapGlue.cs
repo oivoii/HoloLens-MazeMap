@@ -17,6 +17,7 @@ public class MazeMapGlue : MonoBehaviour {
     private string mapDataUrl;
 
     private SearchResult searchState = SearchResult.Awaiting;
+    private MazeMapResult currentRoomInfo;
 
     private int[] preferredCampuses =
     {
@@ -59,7 +60,23 @@ public class MazeMapGlue : MonoBehaviour {
         public PointData geometry;
         public string title;
         public int campusId;
+
         public double zValue;
+        public double z;
+
+        public int floor
+        {
+            get
+            {
+                int izValue = (int)zValue;
+                int iz = (int)z;
+
+                if (izValue == 0 && iz != 0)
+                    return iz;
+                else
+                    return izValue;
+            }
+        }
     }
 
     [System.Serializable]
@@ -96,6 +113,9 @@ public class MazeMapGlue : MonoBehaviour {
                 /* First, try to find a room on the preferred campus */
                 MazeMapResult result = data.result.Find(delegate(MazeMapResult res)
                 {
+                    if (res.geometry.type == null)
+                        return false;
+
                     for (int i = 0; i < preferredCampuses.Length; i++)
                         if (preferredCampuses[i] == res.campusId)
                             return true;
@@ -114,6 +134,8 @@ public class MazeMapGlue : MonoBehaviour {
 
                 Debug.Log(string.Format("Room: {0} at campus {1}", result.title, result.campusId));
 
+                currentRoomInfo = result;
+
                 mapDataUrl = string.Format(
                     mapDataUrlTemplate,
                     result.geometry.latitude,
@@ -124,6 +146,15 @@ public class MazeMapGlue : MonoBehaviour {
                 searchState = SearchResult.Complete;
             }
         }
+    }
+
+    private int FloorToIndex(MazeMapResult result) {
+        int idx = result.floor;
+
+        if (idx > 0)
+            idx--;
+
+        return idx;
     }
 
     private void ShowError(string error = "Something went wrong") {
@@ -186,7 +217,7 @@ public class MazeMapGlue : MonoBehaviour {
         FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
         
         /* The end result */
-        currentPos.position = new Vector3(direction.distance[1], 0, direction.distance[0]);
+        currentPos.position = new Vector3(direction.distance[1], BuildMesh3.roomHeight * FloorToIndex(currentRoomInfo), direction.distance[0]);
         currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);
     }
 }
