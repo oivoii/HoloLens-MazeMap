@@ -22,14 +22,13 @@ GameObject:
   - component: {fileID: 33941152125755400}
   - component: {fileID: 23614972940672382}
   - component: {fileID: 65545514185780058}
-  - component: {fileID: 114310187386673768}
   - component: {fileID: 114154805950115454}
   - component: {fileID: 114117111835178250}
   - component: {fileID: 114489150343254382}
   - component: {fileID: 114033703614169460}
   - component: {fileID: 114186564515178136}
-  - component: {fileID: 114263623129274406}
   - component: {fileID: 114077377844229258}
+  - component: {fileID: 114831557762882444}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -43,8 +42,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1279513339785464}
-  m_LocalRotation: {x: 0, y: 0.76828355, z: 0, w: 0.6401098}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,7 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceUrlField: {fileID: 0}
-  cursor: {fileID: 0}
 --- !u!114 &114077377844229258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,30 +172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   latitude: 63.410789
   longitude: 10.409592
---- !u!114 &114263623129274406
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1279513339785464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42443dccc36586f4ab9b90c3f1a26595, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  longitude: 0
-  latitude: 0
---- !u!114 &114310187386673768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1279513339785464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e01bc8b0f76fd45bcd4e2110a923d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114489150343254382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,3 +203,16 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   IsGlobalListener: 1
   PersistentKeywords: 0
+--- !u!114 &114831557762882444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279513339785464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71abc06c80e83244ea24f7e59822a563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  longitude: 0
+  latitude: 0

@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 
 public class MazeMapGlue : MonoBehaviour {
     public InputField sourceUrlField;
-    public GameObject cursor;
 
     private const int mapSRID = 4326;
     private const string mapSearchUrlTemplate = 
@@ -17,12 +16,21 @@ public class MazeMapGlue : MonoBehaviour {
         "https://api.mazemap.com/api/pois/closestpoi/?lat={0}&lng={1}&z={2}&srid={3}";
     private string mapDataUrl;
 
+    private SearchResult searchState = SearchResult.Awaiting;
+
     private int[] preferredCampuses =
     {
         1,
         20,
     };
     
+    private enum SearchResult
+    {
+        Awaiting,
+        Complete,
+        Failed,
+    };
+
     [System.Serializable]
     public struct PointData
     {
@@ -82,6 +90,7 @@ public class MazeMapGlue : MonoBehaviour {
             var data = JsonConvert.DeserializeObject<MazeMapSearch>(webData.downloadHandler.text, settings);
             if(data.result.Count == 0) {
                 Debug.LogError("No results for search");
+                searchState = SearchResult.Failed;
             }else
             {
                 /* First, try to find a room on the preferred campus */
@@ -111,13 +120,33 @@ public class MazeMapGlue : MonoBehaviour {
                     result.geometry.longitude,
                     Mathf.FloorToInt((float)result.zValue),
                     mapSRID).Replace(",", ".");
+
+                searchState = SearchResult.Complete;
             }
         }
     }
 
+    private void ShowError(string error = "Something went wrong") {
+        GameObject obj = GameObject.FindGameObjectWithTag("StatusText");
+        Text statusField = obj.GetComponent<Text>();
+        statusField.text = error;
+    }
+
+    private void ClearError() {
+        ShowError("");
+    }
+
     IEnumerator PerformSearchInternal() {
+        ClearError();
+        
         /* Perform search in MazeMap */
         yield return GetMapDataUrl();
+
+        if(searchState == SearchResult.Failed)
+        {
+            ShowError("No results for search");
+            yield break;
+        }
 
         /* Put MazeMap POI url into MazeMapGet to get geometry of room */
         MazeMapGet mapGet = GetComponent<MazeMapGet>();
@@ -126,10 +155,22 @@ public class MazeMapGlue : MonoBehaviour {
         /* We can then await MazeMapGet for the geometry data */
         yield return mapGet.GetData();
 
-        Debug.Log("derp");
+        if(mapGet.geometryData.coordinates == null)
+        {
+            ShowError("Couldn't find shape of room");
+            yield break;
+        }
 
         /* Once data has arrived, create the mesh to place out */
         BuildMesh3 meshBuilder = GetComponent<BuildMesh3>();
+
+        if(meshBuilder == null)
+        {
+            Debug.LogError("Failed to locate BuildMesh3 component");
+            ShowError();
+            yield break;
+        }
+
         yield return meshBuilder.MakeModel(mapGet.geometryData.coordinates);
     }
 
@@ -143,27 +184,9 @@ public class MazeMapGlue : MonoBehaviour {
         Transform currentPos = gameObject.transform;
 
         FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
-
-
-        /* TODO: Displace currentPos relative to holoPosition, based on mesh */
-        //const double equatorDegrees = 110.25;
-
-        //double xDifference = meshData.latitude - holoPosition.latitude;
-        //double yDifference = 
-        //    (meshData.longitude - holoPosition.longitude) * Math.Cos(holoPosition.latitude);
-
-        //float distance = 
-        //    (float)(equatorDegrees * Math.Sqrt(Math.Pow(xDifference, 2) + Math.Pow(yDifference, 2)));
-
-        //float xDiff = (float)xDifference;
-        //float yDiff = (float)yDifference;
-
-        //Vector3 irection = new Vector3((float)xDifference, (float)yDifference).normalized;
         
-
         /* The end result */
         currentPos.position = new Vector3(direction.distance[1], 0, direction.distance[0]);
-
-        //currentPos.position = new Vector3((float)holoPosition.latitude, (float)holoPosition.longitude);
+        currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);
     }
 }
