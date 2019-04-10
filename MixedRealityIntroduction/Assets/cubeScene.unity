@@ -1182,53 +1182,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1279513339785464, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
+      propertyPath: m_Name
+      value: Cube
+      objectReference: {fileID: 0}
     - target: {fileID: 114033703614169460, guid: f4d116503f0186f4db56d4a1e21e595b,
         type: 2}
       propertyPath: sourceUrlField
       value: 
       objectReference: {fileID: 651340267}
-    - target: {fileID: 1279513339785464, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 23614972940672382, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: m_LightProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23614972940672382, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: m_ReflectionProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23614972940672382, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23614972940672382, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: m_ReceiveShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1279513339785464, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23614972940672382, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: m_PreserveUVs
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4297239473859368, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 23614972940672382, guid: f4d116503f0186f4db56d4a1e21e595b,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3df6c1a623badbf43837f62652d9d350, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
   m_IsPrefabParent: 0
