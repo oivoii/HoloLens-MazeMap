@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 
 public class MazeMapGlue : MonoBehaviour {
     public InputField sourceUrlField;
+    public InputField playerFloor;
 
     private const int mapSRID = 4326;
     private const string mapSearchUrlTemplate = 
@@ -157,6 +158,26 @@ public class MazeMapGlue : MonoBehaviour {
         return idx;
     }
 
+    private int FloorToIndex(string text)
+    {
+        try
+        {
+            int idx = Convert.ToInt32(text, 10);
+
+            if (idx > 0)
+                idx--;
+
+            return idx;
+        } catch(ArgumentOutOfRangeException e)
+        {
+            return 0;
+        }
+        catch (FormatException e)
+        {
+            return 0;
+        }
+    }
+
     private void ShowError(string error = "Something went wrong") {
         GameObject obj = GameObject.FindGameObjectWithTag("StatusText");
         Text statusField = obj.GetComponent<Text>();
@@ -217,7 +238,7 @@ public class MazeMapGlue : MonoBehaviour {
         FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
         
         /* The end result */
-        currentPos.position = new Vector3(direction.distance[1], BuildMesh3.roomHeight * FloorToIndex(currentRoomInfo), direction.distance[0]);
+        currentPos.position = new Vector3(direction.distance[1], BuildMesh3.roomHeight * (FloorToIndex(currentRoomInfo) - FloorToIndex(playerFloor.text)), direction.distance[0]);
         currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);
     }
 }
