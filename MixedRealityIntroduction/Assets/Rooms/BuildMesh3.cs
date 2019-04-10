@@ -5,6 +5,8 @@ using System;
 
 public class BuildMesh3 : MonoBehaviour {
 
+    public static readonly float roomHeight = 3;
+
     public double longitude;
     public double latitude;
     
@@ -21,7 +23,6 @@ public class BuildMesh3 : MonoBehaviour {
 
 
         //Distance between floor and roof of room
-        float roomHeight = 1;
         float scaleFactor = 1;
 
         //finding index of main room (largest latitude span)
