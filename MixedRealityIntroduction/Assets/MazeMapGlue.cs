@@ -239,7 +239,7 @@ public class MazeMapGlue : MonoBehaviour {
         FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
         
         /* The end result */
-        currentPos.position = new Vector3(direction.distance[1], BuildMesh3.roomHeight * (FloorToIndex(currentRoomInfo) - FloorToIndex(playerFloor.text)), direction.distance[0]);
+        currentPos.position = new Vector3(direction.distance[1], (BuildMesh3.roomHeight * (FloorToIndex(currentRoomInfo) - FloorToIndex(playerFloor.text))) - (float)1.8, direction.distance[0]);
         currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);
     }
 }
