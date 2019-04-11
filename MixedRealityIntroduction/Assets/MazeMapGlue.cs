@@ -224,20 +224,39 @@ public class MazeMapGlue : MonoBehaviour {
         }
 
         yield return meshBuilder.MakeModel(mapGet.geometryData.coordinates);
-        UpdateGPS();
+        UpdateModel();
     }
 
     public void PerformSearch() {
         StartCoroutine(PerformSearchInternal());
     }
 
+    double ModelLatitude;
+    double ModelLongitude;
+
     public void UpdateGPS() {
         GPSPosition holoPosition = GetComponent<GPSPosition>();
+
+        ModelLatitude = holoPosition.latitude;
+        ModelLongitude = holoPosition.longitude;
+
         BuildMesh3 meshData = GetComponent<BuildMesh3>();
         Transform currentPos = gameObject.transform;
 
         FindGPSDistance.dd direction = FindGPSDistance.GPSDistance( holoPosition.longitude, holoPosition.latitude, meshData.longitude, meshData.latitude);
         
+        /* The end result */
+        currentPos.position = new Vector3(direction.distance[1], (BuildMesh3.roomHeight * (FloorToIndex(currentRoomInfo) - FloorToIndex(playerFloor.text))) - (float)1.8, direction.distance[0]);
+        currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);
+    }
+
+    public void UpdateModel()
+    {
+        BuildMesh3 meshData = GetComponent<BuildMesh3>();
+        Transform currentPos = gameObject.transform;
+
+        FindGPSDistance.dd direction = FindGPSDistance.GPSDistance(ModelLongitude, ModelLatitude, meshData.longitude, meshData.latitude);
+
         /* The end result */
         currentPos.position = new Vector3(direction.distance[1], (BuildMesh3.roomHeight * (FloorToIndex(currentRoomInfo) - FloorToIndex(playerFloor.text))) - (float)1.8, direction.distance[0]);
         currentPos.rotation = Quaternion.Euler(0, 90 + (float)meshData.longitude, 0);

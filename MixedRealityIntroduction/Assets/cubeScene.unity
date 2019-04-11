@@ -1767,6 +1767,16 @@ Prefab:
       propertyPath: Keywords.Array.data[0].KeyCode
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114186564515178136, guid: f4d116503f0186f4db56d4a1e21e595b,
+        type: 2}
+      propertyPath: latitude
+      value: 63.4157459
+      objectReference: {fileID: 0}
+    - target: {fileID: 114186564515178136, guid: f4d116503f0186f4db56d4a1e21e595b,
+        type: 2}
+      propertyPath: longitude
+      value: 10.4063614
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
   m_IsPrefabParent: 0
