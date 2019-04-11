@@ -224,13 +224,14 @@ public class MazeMapGlue : MonoBehaviour {
         }
 
         yield return meshBuilder.MakeModel(mapGet.geometryData.coordinates);
+        UpdateGPS();
     }
 
     public void PerformSearch() {
         StartCoroutine(PerformSearchInternal());
     }
 
-    private void Update() {
+    public void UpdateGPS() {
         GPSPosition holoPosition = GetComponent<GPSPosition>();
         BuildMesh3 meshData = GetComponent<BuildMesh3>();
         Transform currentPos = gameObject.transform;
