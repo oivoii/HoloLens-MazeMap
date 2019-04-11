@@ -231,8 +231,8 @@ public class MazeMapGlue : MonoBehaviour {
         StartCoroutine(PerformSearchInternal());
     }
 
-    double ModelLatitude;
-    double ModelLongitude;
+    public double ModelLatitude;
+    public double ModelLongitude;
 
     public void UpdateGPS() {
         GPSPosition holoPosition = GetComponent<GPSPosition>();

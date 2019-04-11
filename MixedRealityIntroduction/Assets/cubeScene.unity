@@ -1777,6 +1777,16 @@ Prefab:
       propertyPath: longitude
       value: 10.4063614
       objectReference: {fileID: 0}
+    - target: {fileID: 114033703614169460, guid: f4d116503f0186f4db56d4a1e21e595b,
+        type: 2}
+      propertyPath: ModelLatitude
+      value: 63.4157459
+      objectReference: {fileID: 0}
+    - target: {fileID: 114033703614169460, guid: f4d116503f0186f4db56d4a1e21e595b,
+        type: 2}
+      propertyPath: ModelLongitude
+      value: 10.4063614
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4d116503f0186f4db56d4a1e21e595b, type: 2}
   m_IsPrefabParent: 0
